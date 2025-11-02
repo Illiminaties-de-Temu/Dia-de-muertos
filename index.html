@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Día de Muertos — Honrando la vida · Geck Codex</title>
+
+  <!-- Tipografías -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@300;500;700&family=Righteous&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --purple-900: #2b0f36;
+      --purple-700: #4a205a;
+      --purple-500: #6b2f80;
+      --orange-500: #ff8a00;
+      --orange-400: #ff9d1b;
+      --gold: #ffd166;
+      --pink: #ff6fa3;
+      --cyan: #00d4ff;
+      --lime: #a0ff00;
+      --paper: #fff8ef;
+      --shadow: 0 12px 30px rgba(0,0,0,0.5);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: "Montserrat", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(255,209,102,0.05), transparent 12%),
+        radial-gradient(circle at 85% 85%, rgba(255,111,163,0.04), transparent 10%),
+        radial-gradient(circle at 50% 50%, rgba(107,47,128,0.03), transparent 40%),
+        linear-gradient(180deg, var(--purple-900) 0%, #2f1540 30%, #1e0f2a 100%);
+      color:#fff;
+      overflow-x:hidden;
+      min-height:100vh;
+    }
+
+    .papel-picado{
+      position:fixed;
+      left:0; right:0; top:0;
+      height:150px;
+      display:flex; justify-content:space-between;
+      padding:12px 5%; gap:16px;
+      z-index:5; pointer-events:none;
+    }
+    .papel{
+      width:calc(20% - 12px);
+      height:100px;
+      transform-origin:top center;
+      animation:sway 6s ease-in-out infinite;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
+    }
+    .papel:nth-child(1){animation-duration:7.2s; animation-delay:0s}
+    .papel:nth-child(2){animation-duration:6.3s; animation-delay:0.7s}
+    .papel:nth-child(3){animation-duration:7.8s; animation-delay:1.2s}
+    .papel:nth-child(4){animation-duration:6.6s; animation-delay:0.4s}
+    .papel:nth-child(5){animation-duration:7s; animation-delay:0.9s}
+    @keyframes sway{
+      0%{transform:rotate(-9deg)}
+      50%{transform:rotate(9deg)}
+      100%{transform:rotate(-9deg)}
+    }
+
+    .stage{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:10vh 4%;
+      position:relative;
+      z-index:1;
+    }
+
+    .card{
+      max-width:1400px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,138,0,0.02));
+      border-radius:28px;
+      box-shadow: var(--shadow), 0 0 80px rgba(255,138,0,0.2), inset 0 0 100px rgba(107,47,128,0.1);
+      padding:60px;
+      position:relative;
+      overflow:hidden;
+      border:3px solid rgba(255,209,102,0.15);
+      backdrop-filter:blur(10px);
+    }
+
+    .hero{
+      text-align:center;
+      position:relative;
+      z-index:20;
+      margin-bottom:60px;
+      width:100%;
+    }
+
+    h1{
+      font-family:"Cinzel Decorative", serif;
+      font-size:clamp(60px, 8vw, 110px);
+      color:var(--gold);
+      text-shadow:0 12px 30px rgba(255,138,0,0.8), 0 0 60px rgba(255,209,102,0.5), 0 6px 12px rgba(0,0,0,0.9);
+      letter-spacing:4px;
+      margin-bottom:25px;
+      animation:glow 3s ease-in-out infinite;
+      font-weight: 700;
+    }
+    @keyframes glow{
+      0%, 100%{text-shadow:0 12px 30px rgba(255,138,0,0.8), 0 0 60px rgba(255,209,102,0.5), 0 6px 12px rgba(0,0,0,0.9)}
+      50%{text-shadow:0 12px 30px rgba(255,138,0,1), 0 0 80px rgba(255,209,102,0.7), 0 6px 12px rgba(0,0,0,0.9)}
+    }
+    
+    h2{
+      font-size:clamp(26px, 3vw, 38px);
+      color:var(--paper);
+      opacity:0.98;
+      text-shadow:0 4px 12px rgba(0,0,0,0.7);
+      margin-bottom:30px;
+      letter-spacing:2.5px;
+      font-weight: 500;
+    }
+    
+    .signature{
+      margin:0 auto;
+      font-size:18px;
+      color:rgba(255,255,255,0.95);
+      background:linear-gradient(135deg, rgba(255,138,0,0.3), rgba(107,47,128,0.3));
+      padding:15px 30px;
+      border-radius:999px;
+      display:inline-block;
+      border:2px solid rgba(255,209,102,0.4);
+      box-shadow:0 8px 20px rgba(0,0,0,0.5), 0 0 40px rgba(255,138,0,0.25);
+    }
+
+    .main-content{
+      display:flex;
+      gap:70px;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:20;
+      width:100%;
+    }
+
+    .tomb-section{
+      flex:1;
+      min-width:400px;
+      max-width:550px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:40px;
+    }
+
+    .tomb-container{
+      position:relative;
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+
+    .tomb{
+      width:100%;
+      max-width:480px;
+      height:auto;
+      aspect-ratio:400/340;
+      position:relative;
+      filter:drop-shadow(0 30px 60px rgba(0,0,0,0.9)) drop-shadow(0 0 50px rgba(255,138,0,0.3));
+      transform: scale(1.1);
+    }
+
+    .flowers-decoration{
+      position:absolute;
+      width:140%;
+      height:140%;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    .skull-section{
+      flex:1;
+      min-width:400px;
+      max-width:550px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .skull{
+      width:clamp(350px, 38vw, 480px);
+      height:clamp(350px, 38vw, 480px);
+      animation:float 8s ease-in-out infinite;
+      filter:drop-shadow(0 35px 70px rgba(0,0,0,0.9)) drop-shadow(0 0 60px rgba(255,138,0,0.35));
+    }
+    @keyframes float{
+      0%{transform:translateY(0) rotate(-3deg)}
+      50%{transform:translateY(-15px) rotate(3deg)}
+      100%{transform:translateY(0) rotate(-3deg)}
+    }
+
+    .petal-layer{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index:15;
+      overflow:hidden;
+    }
+    .petal{
+      position:absolute;
+      width:22px;
+      height:32px;
+      background:linear-gradient(135deg,var(--orange-400) 0%, var(--orange-500) 50%, #ff6b00 100%);
+      border-radius:50% 50% 50% 0;
+      filter:drop-shadow(0 4px 8px rgba(255,138,0,0.5));
+      animation:fall var(--dur) linear infinite;
+      opacity:0;
+    }
+    .petal::before{
+      content:'';
+      position:absolute;
+      top:2px;
+      left:2px;
+      right:2px;
+      bottom:2px;
+      background:linear-gradient(135deg, rgba(255,255,255,0.3), transparent 60%);
+      border-radius:50% 50% 50% 0;
+    }
+    @keyframes fall{
+      0%{transform:translateY(-10vh) rotate(0deg);opacity:0}
+      5%{opacity:1}
+      95%{opacity:0.85}
+      100%{transform:translateY(110vh) rotate(720deg);opacity:0}
+    }
+
+    .altar{
+      display:flex;
+      gap:clamp(28px, 3.5vw, 40px);
+      align-items:flex-end;
+      justify-content:center;
+      padding-top:25px;
+    }
+    .candle{
+      width:clamp(55px, 5vw, 75px);
+      height:clamp(105px, 10vw, 135px);
+      background:linear-gradient(180deg,#fffbf7 0%,#ffe8cc 30%,#ffd9a8 70%, #e6c399 100%);
+      border-radius:16px 16px 8px 8px;
+      position:relative;
+      box-shadow:0 12px 30px rgba(0,0,0,0.7), inset 0 4px 8px rgba(255,255,255,0.4), inset 0 -3px 6px rgba(139,101,75,0.3);
+    }
+    .candle::before{
+      content:'';
+      position:absolute;
+      top:12px;
+      left:50%;
+      transform:translateX(-50%);
+      width:5px;
+      height:10px;
+      background:#8b654b;
+      border-radius:3px;
+    }
+    .flame{
+      width:28px;
+      height:40px;
+      background:radial-gradient(ellipse at 40% 30%,#fff 0%,#fff 10%,#ffe76f 28%,#ffb84a 52%,#ff8a00 78%,rgba(255,70,0,0.5) 92%, transparent 100%);
+      border-radius:50% 50% 50% 50% / 65% 65% 35% 35%;
+      position:absolute;
+      top:-22px;
+      left:50%;
+      transform:translateX(-50%);
+      animation:flicker 2s ease-in-out infinite;
+      box-shadow:0 0 30px rgba(255,160,50,0.95), 0 0 60px rgba(255,138,0,0.6), 0 -6px 18px rgba(255,200,100,0.5);
+    }
+    .flame::after{
+      content:'';
+      position:absolute;
+      top:7px;
+      left:50%;
+      transform:translateX(-50%);
+      width:14px;
+      height:20px;
+      background:radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, transparent 70%);
+      border-radius:50%;
+    }
+    @keyframes flicker{
+      0%{transform:translateX(-50%) scale(1) translateY(0)}
+      20%{transform:translateX(-50%) scale(1.1) translateY(-3px)}
+      40%{transform:translateX(-50%) scale(0.92) translateY(2px)}
+      60%{transform:translateX(-50%) scale(1.08) translateY(-2px)}
+      80%{transform:translateX(-50%) scale(0.96) translateY(1px)}
+      100%{transform:translateX(-50%) scale(1) translateY(0)}
+    }
+
+    .mini-skull{
+      position:absolute;
+      pointer-events:none;
+      filter:drop-shadow(0 6px 15px rgba(0,0,0,0.5));
+      z-index:10;
+      opacity: 0.6;
+    }
+
+    @media (max-width:1000px){
+      .main-content{gap:60px}
+      .card{padding:50px}
+      .tomb{transform: scale(1.05);}
+    }
+    @media (max-width:750px){
+      .stage{padding:8vh 4%}
+      .main-content{flex-direction:column; gap:50px}
+      .tomb-section, .skull-section{max-width:90vw; min-width:320px;}
+      .card{padding:40px}
+      .papel-picado{height:110px}
+      .papel{height:75px}
+      .tomb{transform: scale(1);}
+    }
+    @media (max-width:500px){
+      .stage{padding:7vh 3%}
+      .hero{margin-bottom:40px}
+      .signature{font-size:16px; padding:12px 24px}
+      .card{padding:30px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Papel picado decorativo -->
+  <div class="papel-picado" aria-hidden="true">
+    <svg class="papel" viewBox="0 0 180 130">
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ff8a00"/>
+          <stop offset="0.5" stop-color="#ff6b00"/>
+          <stop offset="1" stop-color="#6b2f80"/>
+        </linearGradient>
+      </defs>
+      <rect width="180" height="130" rx="10" fill="url(#g1)"/>
+      <circle cx="35" cy="35" r="14" fill="rgba(255,255,255,0.35)"/>
+      <circle cx="90" cy="30" r="16" fill="rgba(255,255,255,0.35)"/>
+      <circle cx="145" cy="35" r="14" fill="rgba(255,255,255,0.35)"/>
+      <path d="M30,70 Q45,85 60,70 Q75,85 90,70 Q105,85 120,70 Q135,85 150,70" stroke="rgba(255,255,255,0.45)" stroke-width="4" fill="none"/>
+      <circle cx="90" cy="95" r="12" fill="rgba(255,255,255,0.3)"/>
+    </svg>
+    
+    <svg class="papel" viewBox="0 0 180 130">
+      <defs>
+        <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ff6fa3"/>
+          <stop offset="0.5" stop-color="#ff4d8f"/>
+          <stop offset="1" stop-color="#4a205a"/>
+        </linearGradient>
+      </defs>
+      <rect width="180" height="130" rx="10" fill="url(#g2)"/>
+      <circle cx="45" cy="40" r="13" fill="rgba(255,255,255,0.35)"/>
+      <circle cx="90" cy="35" r="15" fill="rgba(255,255,255,0.35)"/>
+      <circle cx="135" cy="40" r="13" fill="rgba(255,255,255,0.35)"/>
+      <rect x="30" y="70" width="120" height="10" rx="5" fill="rgba(255,255,255,0.45)"/>
+      <path d="M40,95 L70,95 M110,95 L140,95" stroke="rgba(255,255,255,0.4)" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+    
+    <svg class="papel" viewBox="0 0 180 130">
+      <defs>
+        <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ffd166"/>
+          <stop offset="0.5" stop-color="#ffb833"/>
+          <stop offset="1" stop-color="#ff9d1b"/>
+        </linearGradient>
+      </defs>
+      <rect width="180" height="130" rx="10" fill="url(#g3)"/>
+      <polygon points="90,20 105,50 75,50" fill="rgba(255,255,255,0.4)"/>
+      <polygon points="40,25 52,50 28,50" fill="rgba(255,255,255,0.35)"/>
+      <polygon points="140,25 152,50 128,50" fill="rgba(255,255,255,0.35)"/>
+      <circle cx="90" cy="80" r="18" fill="rgba(255,255,255,0.35)"/>
+      <circle cx="50" cy="90" r="12" fill="rgba(255,255,255,0.3)"/>
+      <circle cx="130" cy="90" r="12" fill="rgba(255,255,255,0.3)"/>
+    </svg>
+    
+    <svg class="papel" viewBox="0 0 180 130">
+      <defs>
+        <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#00d4ff"/>
+          <stop offset="0.5" stop-color="#00aacc"/>
+          <stop offset="1" stop-color="#6b2f80"/>
+        </linearGradient>
+      </defs>
+      <rect width="180" height="130" rx="10" fill="url(#g4)"/>
+      <circle cx="50" cy="38" r="13" fill="rgba(255,255,255,0.35)"/>
+      <circle cx="90" cy="33" r="15" fill="rgba(255,255,255,0.35)"/>
+      <circle cx="130" cy="38" r="13" fill="rgba(255,255,255,0.35)"/>
+      <path d="M25,75 L155,75 M40,95 L140,95" stroke="rgba(255,255,255,0.45)" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="90" cy="110" r="10" fill="rgba(255,255,255,0.3)"/>
+    </svg>
+
+    <svg class="papel" viewBox="0 0 180 130">
+      <defs>
+        <linearGradient id="g5" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#a0ff00"/>
+          <stop offset="0.5" stop-color="#7acc00"/>
+          <stop offset="1" stop-color="#4a205a"/>
+        </linearGradient>
+      </defs>
+      <rect width="180" height="130" rx="10" fill="url(#g5)"/>
+      <circle cx="40" cy="40" r="12" fill="rgba(255,255,255,0.35)"/>
+      <circle cx="90" cy="35" r="14" fill="rgba(255,255,255,0.35)"/>
+      <circle cx="140" cy="40" r="12" fill="rgba(255,255,255,0.35)"/>
+      <rect x="35" y="70" width="110" height="8" rx="4" fill="rgba(255,255,255,0.4)"/>
+      <path d="M50,95 Q90,105 130,95" stroke="rgba(255,255,255,0.45)" stroke-width="4" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="stage">
+    <div class="card">
+      <div class="hero">
+        <h1>Día de Muertos</h1>
+        <h2>Honrando la vida</h2>
+        <div class="signature">De parte de Geck Codex</div>
+      </div>
+
+      <div class="main-content">
+        <!-- Tumba con altar centrados -->
+        <div class="tomb-section">
+          <div class="tomb-container">
+            <!-- Flores decorativas alrededor de la tumba -->
+            <svg class="flowers-decoration" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
+              <!-- Flores izquierda -->
+              <circle cx="80" cy="280" r="35" fill="#ff8a00" opacity="0.85"/>
+              <circle cx="70" cy="240" r="28" fill="#ffd166" opacity="0.8"/>
+              <circle cx="50" cy="300" r="32" fill="#ff9d1b" opacity="0.85"/>
+              <circle cx="90" cy="320" r="26" fill="#ffd166" opacity="0.8"/>
+              <circle cx="110" cy="260" r="30" fill="#ff8a00" opacity="0.8"/>
+              
+              <!-- Flores derecha -->
+              <circle cx="520" cy="280" r="35" fill="#ff8a00" opacity="0.85"/>
+              <circle cx="530" cy="240" r="28" fill="#ffd166" opacity="0.8"/>
+              <circle cx="550" cy="300" r="32" fill="#ff9d1b" opacity="0.85"/>
+              <circle cx="510" cy="320" r="26" fill="#ffd166" opacity="0.8"/>
+              <circle cx="490" cy="260" r="30" fill="#ff8a00" opacity="0.8"/>
+              
+              <!-- Flores abajo izquierda -->
+              <circle cx="140" cy="380" r="30" fill="#ff9d1b" opacity="0.85"/>
+              <circle cx="120" cy="350" r="24" fill="#ffd166" opacity="0.8"/>
+              <circle cx="160" cy="350" r="26" fill="#ff8a00" opacity="0.8"/>
+              
+              <!-- Flores abajo derecha -->
+              <circle cx="460" cy="380" r="30" fill="#ff9d1b" opacity="0.85"/>
+              <circle cx="480" cy="350" r="24" fill="#ffd166" opacity="0.8"/>
+              <circle cx="440" cy="350" r="26" fill="#ff8a00" opacity="0.8"/>
+              
+              <!-- Flores arriba -->
+              <circle cx="200" cy="180" r="28" fill="#ffd166" opacity="0.75"/>
+              <circle cx="300" cy="160" r="32" fill="#ff8a00" opacity="0.8"/>
+              <circle cx="400" cy="180" r="28" fill="#ffd166" opacity="0.75"/>
+            </svg>
+
+            <svg class="tomb" viewBox="0 0 400 340" xmlns="http://www.w3.org/2000/svg">
+              <!-- Sombra de la tumba -->
+              <ellipse cx="200" cy="315" rx="140" ry="20" fill="rgba(0,0,0,0.4)" opacity="0.6"/>
+              
+              <!-- Base de la tumba -->
+              <rect x="80" y="180" width="240" height="140" fill="#8b7355" rx="8"/>
+              <rect x="70" y="165" width="260" height="25" fill="#a0856b" rx="6"/>
+              
+              <!-- Detalles de profundidad en la base -->
+              <rect x="80" y="180" width="240" height="8" fill="rgba(0,0,0,0.25)"/>
+              <rect x="70" y="165" width="260" height="3" fill="rgba(255,255,255,0.2)"/>
+              
+              <!-- Lápida -->
+              <path d="M120,30 Q120,10 140,10 L260,10 Q280,10 280,30 L280,165 L120,165 Z" fill="#c9b8a8" stroke="#9d8b7a" stroke-width="5"/>
+              
+              <!-- Luz en la lápida -->
+              <path d="M125,30 Q125,15 142,15 L145,15 Q128,15 128,30 L128,165 L125,165 Z" fill="rgba(255,255,255,0.25)"/>
+              
+              <!-- Sombra en la lápida -->
+              <path d="M275,30 Q275,15 258,15 L255,15 Q272,15 272,30 L272,165 L275,165 Z" fill="rgba(0,0,0,0.2)"/>
+              
+              <!-- Corona de flores superior -->
+              <circle cx="200" cy="55" r="30" fill="#ff6fa3" opacity="0.9"/>
+              <circle cx="170" cy="68" r="22" fill="#ffd166" opacity="0.9"/>
+              <circle cx="230" cy="68" r="22" fill="#ff8a00" opacity="0.9"/>
+              <circle cx="150" cy="88" r="18" fill="#00d4ff" opacity="0.85"/>
+              <circle cx="250" cy="88" r="18" fill="#a0ff00" opacity="0.85"/>
+              <circle cx="140" cy="108" r="15" fill="#ff9d1b" opacity="0.8"/>
+              <circle cx="260" cy="108" r="15" fill="#ffd166" opacity="0.8"/>
+              
+              <!-- Cruz decorativa -->
+              <rect x="188" y="115" width="24" height="50" rx="4" fill="#6b2f80"/>
+              <rect x="171" y="127" width="58" height="22" rx="4" fill="#6b2f80"/>
+              
+              <!-- Detalles de la cruz -->
+              <rect x="190" y="115" width="4" height="50" fill="rgba(255,255,255,0.3)"/>
+              <rect x="171" y="129" width="58" height="4" fill="rgba(255,255,255,0.3)"/>
+              
+              <!-- Decoración ondulada -->
+              <path d="M140,145 Q200,158 260,145" stroke="#8b7355" stroke-width="4" fill="none"/>
+              
+              <!-- Inscripción -->
+              <text x="200" y="143" font-family="Righteous, serif" font-size="18" font-weight="bold" fill="#5d4a3d" text-anchor="middle" opacity="0.8">RIP</text>
+              
+              <!-- Flores en la base de la tumba -->
+              <circle cx="95" cy="195" r="14" fill="#ff8a00" opacity="0.9"/>
+              <circle cx="115" cy="202" r="12" fill="#ffd166" opacity="0.9"/>
+              <circle cx="285" cy="202" r="12" fill="#ff8a00" opacity="0.9"/>
+              <circle cx="305" cy="195" r="14" fill="#ffd166" opacity="0.9"/>
+              <circle cx="130" cy="190" r="10" fill="#ff9d1b" opacity="0.85"/>
+              <circle cx="270" cy="190" r="10" fill="#ff9d1b" opacity="0.85"/>
+            </svg>
+          </div>
+
+          <!-- Velas centradas debajo de la tumba -->
+          <div class="altar">
+            <div><div class="candle"><div class="flame"></div></div></div>
+            <div><div class="candle"><div class="flame"></div></div></div>
+            <div><div class="candle"><div class="flame"></div></div></div>
+          </div>
+        </div>
+
+        <!-- Calavera principal mejorada -->
+        <div class="skull-section">
+          <svg class="skull" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cráneo base con gradiente -->
+            <defs>
+              <radialGradient id="skullGrad" cx="50%" cy="40%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="100%" stop-color="#fff8ef"/>
+              </radialGradient>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            
+            <ellipse cx="300" cy="290" rx="175" ry="195" fill="url(#skullGrad)" stroke="#ffb870" stroke-width="10"/>
+            
+            <!-- Corona de flores superior -->
+            <circle cx="300" cy="110" r="32" fill="#ff6fa3" filter="url(#glow)"/>
+            <circle cx="255" cy="128" r="26" fill="#ff8a00" filter="url(#glow)"/>
+            <circle cx="345" cy="128" r="26" fill="#ffd166" filter="url(#glow)"/>
+            <circle cx="225" cy="155" r="22" fill="#00d4ff" filter="url(#glow)"/>
+            <circle cx="375" cy="155" r="22" fill="#a0ff00" filter="url(#glow)"/>
+            <circle cx="210" cy="185" r="18" fill="#ff6fa3" opacity="0.9"/>
+            <circle cx="390" cy="185" r="18" fill="#ffd166" opacity="0.9"/>
+            
+            <!-- Patrón de flores en la frente -->
+            <circle cx="270" cy="200" r="12" fill="#ff8a00" opacity="0.8"/>
+            <circle cx="300" cy="195" r="14" fill="#ff6fa3" opacity="0.8"/>
+            <circle cx="330" cy="200" r="12" fill="#ffd166" opacity="0.8"/>
+            
+            <!-- Ojos grandes con decoración -->
+            <ellipse cx="235" cy="270" rx="52" ry="62" fill="#2b0f36"/>
+            <ellipse cx="365" cy="270" rx="52" ry="62" fill="#2b0f36"/>
+            
+            <!-- Brillos en los ojos -->
+            <ellipse cx="248" cy="258" rx="15" ry="20" fill="#6b2f80" opacity="0.7"/>
+            <ellipse cx="378" cy="258" rx="15" ry="20" fill="#6b2f80" opacity="0.7"/>
+            <circle cx="255" cy="252" r="8" fill="#ff6fa3" opacity="0.5"/>
+            <circle cx="385" cy="252" r="8" fill="#ff6fa3" opacity="0.5"/>
+            
+            <!-- Decoración alrededor de los ojos -->
+            <circle cx="190" cy="245" r="8" fill="#00d4ff" opacity="0.85"/>
+            <circle cx="195" cy="275" r="7" fill="#a0ff00" opacity="0.85"/>
+            <circle cx="190" cy="305" r="8" fill="#ff8a00" opacity="0.85"/>
+            <circle cx="410" cy="245" r="8" fill="#ffd166" opacity="0.85"/>
+            <circle cx="405" cy="275" r="7" fill="#ff8a00" opacity="0.85"/>
+            <circle cx="410" cy="305" r="8" fill="#00d4ff" opacity="0.85"/>
+            
+            <!-- Nariz decorativa -->
+            <path d="M275,330 L300,370 L325,330 Z" fill="#4a205a"/>
+            <circle cx="300" cy="340" r="6" fill="#ff6fa3" opacity="0.6"/>
+            
+            <!-- Sonrisa amplia con dientes -->
+            <path d="M210,395 Q300,440 390,395" stroke="#2b0f36" stroke-width="12" fill="none" stroke-linecap="round"/>
+            
+            <!-- Dientes detallados -->
+            <rect x="240" y="395" width="24" height="32" fill="#2b0f36" rx="4"/>
+            <rect x="270" y="400" width="24" height="35" fill="#2b0f36" rx="4"/>
+            <rect x="300" y="402" width="24" height="36" fill="#2b0f36" rx="4"/>
+            <rect x="330" y="400" width="24" height="35" fill="#2b0f36" rx="4"/>
+            <rect x="360" y="395" width="24" height="32" fill="#2b0f36" rx="4"/>
+            
+            <!-- Separadores de dientes -->
+            <rect x="264" y="395" width="3" height="32" fill="#4a205a"/>
+            <rect x="294" y="400" width="3" height="35" fill="#4a205a"/>
+            <rect x="324" y="402" width="3" height="36" fill="#4a205a"/>
+            <rect x="354" y="400" width="3" height="35" fill="#4a205a"/>
+            
+            <!-- Mejillas grandes y rosadas -->
+            <circle cx="155" cy="310" r="42" fill="#ff6fa3" opacity="0.6"/>
+            <circle cx="445" cy="310" r="42" fill="#ff6fa3" opacity="0.6"/>
+            
+            <!-- Corazón central en la frente -->
+            <path d="M285,220 Q285,205 295,205 Q300,205 300,210 Q300,205 305,205 Q315,205 315,220 Q315,235 300,248 Q285,235 285,220 Z" fill="#ff6fa3" opacity="0.85" filter="url(#glow)"/>
+            
+            <!-- Decoraciones laterales adicionales -->
+            <circle cx="140" cy="270" r="18" fill="#ffd166" opacity="0.75"/>
+            <circle cx="460" cy="270" r="18" fill="#ff8a00" opacity="0.75"/>
+            <circle cx="125" cy="320" r="15" fill="#ff8a00" opacity="0.7"/>
+            <circle cx="475" cy="320" r="15" fill="#ffd166" opacity="0.7"/>
+            
+            <!-- Puntos decorativos en mandíbula -->
+            <circle cx="250" cy="360" r="6" fill="#00d4ff" opacity="0.8"/>
+            <circle cx="350" cy="360" r="6" fill="#a0ff00" opacity="0.8"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="petal-layer"></div>
+    </div>
+  </div>
+
+  <script>
+    /* Pétalos mejorados */
+    (function(){
+      const layer=document.querySelector('.petal-layer');
+      const count=25; // Reducido de 35 a 25
+      for(let i=0;i<count;i++){
+        const p=document.createElement('div');
+        p.className='petal';
+        p.style.left=(Math.random()*120-10)+'%';
+        const dur=10+Math.random()*14;
+        p.style.setProperty('--dur',dur+'s');
+        p.style.animationDelay=(Math.random()*6)+'s';
+        const scale=0.5+Math.random()*1.6;
+        p.style.width=(18*scale)+'px';
+        p.style.height=(28*scale)+'px';
+        layer.appendChild(p);
+      }
+    })();
+
+    /* Calaveras flotantes estilo mexicano auténtico - REDUCIDAS */
+    (function(){
+      const container=document.querySelector('.card');
+      
+      const skullTypes = [
+        // Tipo 1: Calavera con flores y corazones
+        `<svg width="100%" height="100%" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="sk1" cx="50%" cy="40%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="100%" stop-color="#fff8ef"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="70" cy="70" rx="50" ry="56" fill="url(#sk1)" stroke="#ff9d1b" stroke-width="4"/>
+          <circle cx="70" cy="30" r="12" fill="#ff6fa3"/>
+          <circle cx="55" cy="38" r="9" fill="#ffd166"/>
+          <circle cx="85" cy="38" r="9" fill="#ff8a00"/>
+          <ellipse cx="55" cy="62" rx="12" ry="15" fill="#2b0f36"/>
+          <ellipse cx="85" cy="62" rx="12" ry="15" fill="#2b0f36"/>
+          <circle cx="60" cy="58" r="4" fill="#6b2f80" opacity="0.6"/>
+          <circle cx="90" cy="58" r="4" fill="#6b2f80" opacity="0.6"/>
+          <path d="M58,50 Q58,45 61,45 Q63,45 63,47 Q63,45 65,45 Q68,45 68,50 Q68,55 63,59 Q58,55 58,50 Z" fill="#ff6fa3" opacity="0.8"/>
+          <path d="M55,82 Q70,92 85,82" stroke="#2b0f36" stroke-width="4" fill="none"/>
+          <rect x="62" y="82" width="7" height="9" fill="#2b0f36" rx="2"/>
+          <rect x="72" y="82" width="7" height="9" fill="#2b0f36" rx="2"/>
+          <circle cx="40" cy="68" r="14" fill="#ff6fa3" opacity="0.55"/>
+          <circle cx="100" cy="68" r="14" fill="#ff6fa3" opacity="0.55"/>
+          <circle cx="35" cy="60" r="7" fill="#ffd166" opacity="0.7"/>
+          <circle cx="105" cy="60" r="7" fill="#ff8a00" opacity="0.7"/>
+        </svg>`,
+        
+        // Tipo 2: Calavera con decoración de ojos
+        `<svg width="100%" height="100%" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="sk2" cx="50%" cy="40%">
+              <stop offset="0%" stop-color="#fffef8"/>
+              <stop offset="100%" stop-color="#fff5e6"/>
+            </radialGradient>
+          </defs>
+          <circle cx="70" cy="72" r="48" fill="url(#sk2)" stroke="#6b2f80" stroke-width="4"/>
+          <circle cx="70" cy="32" r="11" fill="#ffd166"/>
+          <circle cx="52" cy="40" r="8" fill="#ff8a00"/>
+          <circle cx="88" cy="40" r="8" fill="#00d4ff"/>
+          <ellipse cx="54" cy="64" rx="13" ry="16" fill="#2b0f36"/>
+          <ellipse cx="86" cy="64" rx="13" ry="16" fill="#2b0f36"/>
+          <ellipse cx="60" cy="60" rx="5" ry="7" fill="#6b2f80" opacity="0.65"/>
+          <ellipse cx="92" cy="60" rx="5" ry="7" fill="#6b2f80" opacity="0.65"/>
+          <circle cx="42" cy="56" r="5" fill="#00d4ff" opacity="0.8"/>
+          <circle cx="40" cy="68" r="4" fill="#a0ff00" opacity="0.8"/>
+          <circle cx="42" cy="80" r="5" fill="#ff8a00" opacity="0.8"/>
+          <circle cx="98" cy="56" r="5" fill="#ff6fa3" opacity="0.8"/>
+          <circle cx="100" cy="68" r="4" fill="#ffd166" opacity="0.8"/>
+          <circle cx="98" cy="80" r="5" fill="#00d4ff" opacity="0.8"/>
+          <path d="M52,90 Q70,98 88,90" stroke="#2b0f36" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <rect x="60" y="90" width="8" height="10" fill="#2b0f36" rx="2"/>
+          <rect x="72" y="90" width="8" height="10" fill="#2b0f36" rx="2"/>
+          <circle cx="32" cy="70" r="12" fill="#ff6fa3" opacity="0.5"/>
+          <circle cx="108" cy="70" r="12" fill="#ff6fa3" opacity="0.5"/>
+        </svg>`
+      ];
+
+      // REDUCIDO DE 12 A 3 calaveras
+      const total=3;
+      for(let i=0;i<total;i++){
+        const node=document.createElement('div');
+        node.className='mini-skull';
+        
+        // Posiciones más estratégicas y menos amontonadas
+        const positions = [
+          {left: 15, top: 20}, // esquina superior izquierda
+          {left: 85, top: 25}, // esquina superior derecha  
+          {left: 50, top: 75}  // centro inferior
+        ];
+        
+        node.style.left = positions[i].left + '%';
+        node.style.top = positions[i].top + '%';
+        
+        const size = 60 + Math.random() * 80; // Tamaños más consistentes
+        node.style.width = size + 'px';
+        node.style.height = size + 'px';
+        node.style.opacity = 0.4 + Math.random() * 0.3; // Más sutiles
+        node.style.transform = `translate(-50%,-50%) rotate(${Math.random()*40-20}deg)`; // Menos rotación
+        
+        const skullHTML = skullTypes[Math.floor(Math.random() * skullTypes.length)];
+        node.innerHTML = skullHTML;
+        
+        const dur = 8 + Math.random() * 8; // Animación más lenta y sutil
+        const delay = Math.random() * 3;
+        node.style.animation = `float ${dur}s ease-in-out ${delay}s infinite`;
+        
+        container.appendChild(node);
+      }
+    })();
+  </script>
+</body>
+</html>
