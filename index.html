@@ -27,13 +27,17 @@
     body{
       font-family: "Montserrat", system-ui, sans-serif;
       background:
-        radial-gradient(circle at 15% 15%, rgba(255,209,102,0.05), transparent 12%),
-        radial-gradient(circle at 85% 85%, rgba(255,111,163,0.04), transparent 10%),
-        radial-gradient(circle at 50% 50%, rgba(107,47,128,0.03), transparent 40%),
+        radial-gradient(circle at 15% 15%, rgba(255,209,102,0.06), transparent 12%),
+        radial-gradient(circle at 85% 85%, rgba(255,111,163,0.05), transparent 10%),
+        radial-gradient(circle at 50% 50%, rgba(107,47,128,0.04), transparent 40%),
         linear-gradient(180deg, var(--purple-900) 0%, #2f1540 30%, #1e0f2a 100%);
       color:#fff;
       overflow-x:hidden;
       min-height:100vh;
+      /* Optimización para video */
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .papel-picado{
@@ -88,66 +92,72 @@
       text-align:center;
       position:relative;
       z-index:20;
-      margin-bottom:60px;
+      margin-bottom:30px;
       width:100%;
     }
 
     h1{
       font-family:"Cinzel Decorative", serif;
-      font-size:clamp(60px, 8vw, 110px);
+      font-size:clamp(40px, 10vw, 85px);
       color:var(--gold);
-      text-shadow:0 12px 30px rgba(255,138,0,0.8), 0 0 60px rgba(255,209,102,0.5), 0 6px 12px rgba(0,0,0,0.9);
-      letter-spacing:4px;
-      margin-bottom:25px;
-      animation:glow 3s ease-in-out infinite;
+      text-shadow:0 10px 25px rgba(255,138,0,0.9), 0 0 50px rgba(255,209,102,0.6), 0 6px 12px rgba(0,0,0,0.95);
+      letter-spacing:3px;
+      margin-bottom:15px;
+      animation:glow 2.5s ease-in-out infinite;
       font-weight: 700;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      text-align:center;
+      line-height:1.1;
     }
     @keyframes glow{
-      0%, 100%{text-shadow:0 12px 30px rgba(255,138,0,0.8), 0 0 60px rgba(255,209,102,0.5), 0 6px 12px rgba(0,0,0,0.9)}
-      50%{text-shadow:0 12px 30px rgba(255,138,0,1), 0 0 80px rgba(255,209,102,0.7), 0 6px 12px rgba(0,0,0,0.9)}
+      0%, 100%{text-shadow:0 10px 25px rgba(255,138,0,0.9), 0 0 50px rgba(255,209,102,0.6), 0 6px 12px rgba(0,0,0,0.95)}
+      50%{text-shadow:0 10px 25px rgba(255,138,0,1.1), 0 0 70px rgba(255,209,102,0.8), 0 6px 12px rgba(0,0,0,0.95)}
     }
     
     h2{
-      font-size:clamp(26px, 3vw, 38px);
+      font-size:clamp(18px, 4vw, 28px);
       color:var(--paper);
       opacity:0.98;
-      text-shadow:0 4px 12px rgba(0,0,0,0.7);
-      margin-bottom:30px;
-      letter-spacing:2.5px;
+      text-shadow:0 3px 8px rgba(0,0,0,0.7);
+      margin-bottom:20px;
+      letter-spacing:2px;
       font-weight: 500;
+      text-align:center;
+      line-height:1.2;
     }
     
     .signature{
       margin:0 auto;
-      font-size:18px;
+      font-size:clamp(14px, 3vw, 18px);
       color:rgba(255,255,255,0.95);
       background:linear-gradient(135deg, rgba(255,138,0,0.3), rgba(107,47,128,0.3));
-      padding:15px 30px;
+      padding:12px 24px;
       border-radius:999px;
       display:inline-block;
       border:2px solid rgba(255,209,102,0.4);
-      box-shadow:0 8px 20px rgba(0,0,0,0.5), 0 0 40px rgba(255,138,0,0.25);
+      box-shadow:0 6px 15px rgba(0,0,0,0.5), 0 0 30px rgba(255,138,0,0.25);
+      text-align:center;
     }
 
     .main-content{
       display:flex;
-      gap:70px;
+      flex-direction:column;
+      gap:30px;
       align-items:center;
       justify-content:center;
-      flex-wrap:wrap;
       position:relative;
       z-index:20;
       width:100%;
     }
 
     .tomb-section{
-      flex:1;
-      min-width:400px;
-      max-width:550px;
+      width:100%;
+      max-width:500px;
       display:flex;
       flex-direction:column;
       align-items:center;
-      gap:40px;
+      gap:25px;
     }
 
     .tomb-container{
@@ -160,18 +170,17 @@
 
     .tomb{
       width:100%;
-      max-width:480px;
+      max-width:350px;
       height:auto;
       aspect-ratio:400/340;
       position:relative;
-      filter:drop-shadow(0 30px 60px rgba(0,0,0,0.9)) drop-shadow(0 0 50px rgba(255,138,0,0.3));
-      transform: scale(1.1);
+      filter:drop-shadow(0 20px 40px rgba(0,0,0,0.8)) drop-shadow(0 0 30px rgba(255,138,0,0.25));
     }
 
     .flowers-decoration{
       position:absolute;
-      width:140%;
-      height:140%;
+      width:120%;
+      height:120%;
       top:50%;
       left:50%;
       transform:translate(-50%, -50%);
@@ -179,27 +188,55 @@
       z-index:-1;
     }
 
-    .skull-section{
-      flex:1;
-      min-width:400px;
-      max-width:550px;
+    .altar{
       display:flex;
-      align-items:center;
+      gap:clamp(20px, 4vw, 30px);
+      align-items:flex-end;
       justify-content:center;
+      padding-top:15px;
     }
-
-    .skull{
-      width:clamp(350px, 38vw, 480px);
-      height:clamp(350px, 38vw, 480px);
-      animation:float 8s ease-in-out infinite;
-      filter:drop-shadow(0 35px 70px rgba(0,0,0,0.9)) drop-shadow(0 0 60px rgba(255,138,0,0.35));
+    .candle{
+      width:clamp(40px, 6vw, 55px);
+      height:clamp(75px, 12vw, 100px);
+      background:linear-gradient(180deg,#fffbf7 0%,#ffe8cc 30%,#ffd9a8 70%, #e6c399 100%);
+      border-radius:12px 12px 6px 6px;
+      position:relative;
+      box-shadow:0 8px 20px rgba(0,0,0,0.6), inset 0 3px 6px rgba(255,255,255,0.4), inset 0 -2px 4px rgba(139,101,75,0.3);
     }
-    @keyframes float{
-      0%{transform:translateY(0) rotate(-3deg)}
-      50%{transform:translateY(-15px) rotate(3deg)}
-      100%{transform:translateY(0) rotate(-3deg)}
+    .candle::before{
+      content:'';
+      position:absolute;
+      top:8px;
+      left:50%;
+      transform:translateX(-50%);
+      width:4px;
+      height:8px;
+      background:#8b654b;
+      border-radius:2px;
     }
-
+    .flame{
+      width:20px;
+      height:30px;
+      background:radial-gradient(ellipse at 40% 30%,#fff 0%,#fff 10%,#ffe76f 28%,#ffb84a 52%,#ff8a00 78%,rgba(255,70,0,0.5) 92%, transparent 100%);
+      border-radius:50% 50% 50% 50% / 65% 65% 35% 35%;
+      position:absolute;
+      top:-16px;
+      left:50%;
+      transform:translateX(-50%);
+      animation:flicker 2s ease-in-out infinite;
+      box-shadow:0 0 20px rgba(255,160,50,0.9), 0 0 40px rgba(255,138,0,0.5), 0 -4px 12px rgba(255,200,100,0.4);
+    }
+    .flame::after{
+      content:'';
+      position:absolute;
+      top:5px;
+      left:50%;
+      transform:translateX(-50%);
+      width:10px;
+      height:15px;
+      background:radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, transparent 70%);
+      border-radius:50%;
+    }
     .petal-layer{
       position:absolute;
       inset:0;
@@ -209,21 +246,21 @@
     }
     .petal{
       position:absolute;
-      width:22px;
-      height:32px;
+      width:18px;
+      height:26px;
       background:linear-gradient(135deg,var(--orange-400) 0%, var(--orange-500) 50%, #ff6b00 100%);
       border-radius:50% 50% 50% 0;
-      filter:drop-shadow(0 4px 8px rgba(255,138,0,0.5));
+      filter:drop-shadow(0 3px 6px rgba(255,138,0,0.5));
       animation:fall var(--dur) linear infinite;
       opacity:0;
     }
     .petal::before{
       content:'';
       position:absolute;
-      top:2px;
-      left:2px;
-      right:2px;
-      bottom:2px;
+      top:1px;
+      left:1px;
+      right:1px;
+      bottom:1px;
       background:linear-gradient(135deg, rgba(255,255,255,0.3), transparent 60%);
       border-radius:50% 50% 50% 0;
     }
@@ -234,61 +271,18 @@
       100%{transform:translateY(110vh) rotate(720deg);opacity:0}
     }
 
-    .altar{
-      display:flex;
-      gap:clamp(28px, 3.5vw, 40px);
-      align-items:flex-end;
-      justify-content:center;
-      padding-top:25px;
+    @keyframes float{
+      0%{transform:translateY(0) rotate(-2deg)}
+      50%{transform:translateY(-8px) rotate(2deg)}
+      100%{transform:translateY(0) rotate(-2deg)}
     }
-    .candle{
-      width:clamp(55px, 5vw, 75px);
-      height:clamp(105px, 10vw, 135px);
-      background:linear-gradient(180deg,#fffbf7 0%,#ffe8cc 30%,#ffd9a8 70%, #e6c399 100%);
-      border-radius:16px 16px 8px 8px;
-      position:relative;
-      box-shadow:0 12px 30px rgba(0,0,0,0.7), inset 0 4px 8px rgba(255,255,255,0.4), inset 0 -3px 6px rgba(139,101,75,0.3);
-    }
-    .candle::before{
-      content:'';
-      position:absolute;
-      top:12px;
-      left:50%;
-      transform:translateX(-50%);
-      width:5px;
-      height:10px;
-      background:#8b654b;
-      border-radius:3px;
-    }
-    .flame{
-      width:28px;
-      height:40px;
-      background:radial-gradient(ellipse at 40% 30%,#fff 0%,#fff 10%,#ffe76f 28%,#ffb84a 52%,#ff8a00 78%,rgba(255,70,0,0.5) 92%, transparent 100%);
-      border-radius:50% 50% 50% 50% / 65% 65% 35% 35%;
-      position:absolute;
-      top:-22px;
-      left:50%;
-      transform:translateX(-50%);
-      animation:flicker 2s ease-in-out infinite;
-      box-shadow:0 0 30px rgba(255,160,50,0.95), 0 0 60px rgba(255,138,0,0.6), 0 -6px 18px rgba(255,200,100,0.5);
-    }
-    .flame::after{
-      content:'';
-      position:absolute;
-      top:7px;
-      left:50%;
-      transform:translateX(-50%);
-      width:14px;
-      height:20px;
-      background:radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, transparent 70%);
-      border-radius:50%;
-    }
-    @keyframes flicker{
       0%{transform:translateX(-50%) scale(1) translateY(0)}
-      20%{transform:translateX(-50%) scale(1.1) translateY(-3px)}
-      40%{transform:translateX(-50%) scale(0.92) translateY(2px)}
-      60%{transform:translateX(-50%) scale(1.08) translateY(-2px)}
-      80%{transform:translateX(-50%) scale(0.96) translateY(1px)}
+      15%{transform:translateX(-50%) scale(1.15) translateY(-4px)}
+      30%{transform:translateX(-50%) scale(0.88) translateY(3px)}
+      45%{transform:translateX(-50%) scale(1.12) translateY(-3px)}
+      60%{transform:translateX(-50%) scale(0.92) translateY(2px)}
+      75%{transform:translateX(-50%) scale(1.08) translateY(-2px)}
+      90%{transform:translateX(-50%) scale(0.96) translateY(1px)}
       100%{transform:translateX(-50%) scale(1) translateY(0)}
     }
 
@@ -305,20 +299,50 @@
       .card{padding:50px}
       .tomb{transform: scale(1.05);}
     }
+    /* Optimización específica para Samsung S24 Plus y móviles similares */
     @media (max-width:750px){
-      .stage{padding:8vh 4%}
-      .main-content{flex-direction:column; gap:50px}
-      .tomb-section, .skull-section{max-width:90vw; min-width:320px;}
-      .card{padding:40px}
-      .papel-picado{height:110px}
-      .papel{height:75px}
-      .tomb{transform: scale(1);}
+      .stage{padding:3vh 4%}
+      .main-content{gap:25px; align-items:center}
+      .tomb-section{max-width:90vw; min-width:280px;}
+      .card{padding:25px 20px; border-radius:18px}
+      .papel-picado{height:80px}
+      .papel{height:50px}
+      .tomb{max-width:300px;}
+      
+      /* Hero section optimized for vertical video */
+      h1{font-size:clamp(32px, 9vw, 50px); margin-bottom:10px}
+      h2{font-size:clamp(16px, 4vw, 22px); margin-bottom:15px}
+      .hero{margin-bottom:20px}
+      .signature{font-size:clamp(12px, 3vw, 15px); padding:8px 16px}
+      
+      /* Better candle sizing for mobile */
+      .altar{gap:clamp(15px, 5vw, 25px)}
+      .candle{
+        width:clamp(35px, 7vw, 45px);
+        height:clamp(65px, 12vw, 85px);
+      }
+      .flame{width:16px; height:24px; top:-12px}
     }
+    
+    /* Samsung S24 Plus specific optimizations (around 400px width) */
+    @media (max-width:450px) and (min-width:350px){
+      .stage{padding:2vh 3%}
+      .card{padding:20px 15px}
+      .main-content{gap:20px}
+      .tomb{max-width:280px;}
+      
+      /* Perfect text sizing for S24 Plus */
+      h1{font-size:clamp(28px, 8vw, 45px)}
+      h2{font-size:clamp(14px, 3.5vw, 20px)}
+      .signature{font-size:clamp(11px, 2.5vw, 14px); padding:6px 14px}
+      .hero{margin-bottom:15px}
+    }
+    
     @media (max-width:500px){
-      .stage{padding:7vh 3%}
-      .hero{margin-bottom:40px}
-      .signature{font-size:16px; padding:12px 24px}
-      .card{padding:30px}
+      .stage{padding:2vh 3%}
+      .hero{margin-bottom:15px}
+      .signature{padding:6px 12px}
+      .card{padding:18px 12px}
     }
   </style>
 </head>
@@ -410,6 +434,9 @@
 
   <div class="stage">
     <div class="card">
+      <!-- Botón para pausar animaciones (útil para video) -->
+      <button id="pauseBtn" style="position:absolute; top:15px; right:15px; background:rgba(107,47,128,0.8); color:white; border:none; padding:8px 12px; border-radius:8px; font-size:12px; cursor:pointer; z-index:30; opacity:0.7;">⏸️</button>
+      
       <div class="hero">
         <h1>Día de Muertos</h1>
         <h2>Honrando la vida</h2>
@@ -417,7 +444,7 @@
       </div>
 
       <div class="main-content">
-        <!-- Tumba con altar centrados -->
+        <!-- Solo la tumba con altar centrados -->
         <div class="tomb-section">
           <div class="tomb-container">
             <!-- Flores decorativas alrededor de la tumba -->
@@ -513,97 +540,6 @@
             <div><div class="candle"><div class="flame"></div></div></div>
           </div>
         </div>
-
-        <!-- Calavera principal mejorada -->
-        <div class="skull-section">
-          <svg class="skull" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-            <!-- Cráneo base con gradiente -->
-            <defs>
-              <radialGradient id="skullGrad" cx="50%" cy="40%">
-                <stop offset="0%" stop-color="#ffffff"/>
-                <stop offset="100%" stop-color="#fff8ef"/>
-              </radialGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                <feMerge>
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-            
-            <ellipse cx="300" cy="290" rx="175" ry="195" fill="url(#skullGrad)" stroke="#ffb870" stroke-width="10"/>
-            
-            <!-- Corona de flores superior -->
-            <circle cx="300" cy="110" r="32" fill="#ff6fa3" filter="url(#glow)"/>
-            <circle cx="255" cy="128" r="26" fill="#ff8a00" filter="url(#glow)"/>
-            <circle cx="345" cy="128" r="26" fill="#ffd166" filter="url(#glow)"/>
-            <circle cx="225" cy="155" r="22" fill="#00d4ff" filter="url(#glow)"/>
-            <circle cx="375" cy="155" r="22" fill="#a0ff00" filter="url(#glow)"/>
-            <circle cx="210" cy="185" r="18" fill="#ff6fa3" opacity="0.9"/>
-            <circle cx="390" cy="185" r="18" fill="#ffd166" opacity="0.9"/>
-            
-            <!-- Patrón de flores en la frente -->
-            <circle cx="270" cy="200" r="12" fill="#ff8a00" opacity="0.8"/>
-            <circle cx="300" cy="195" r="14" fill="#ff6fa3" opacity="0.8"/>
-            <circle cx="330" cy="200" r="12" fill="#ffd166" opacity="0.8"/>
-            
-            <!-- Ojos grandes con decoración -->
-            <ellipse cx="235" cy="270" rx="52" ry="62" fill="#2b0f36"/>
-            <ellipse cx="365" cy="270" rx="52" ry="62" fill="#2b0f36"/>
-            
-            <!-- Brillos en los ojos -->
-            <ellipse cx="248" cy="258" rx="15" ry="20" fill="#6b2f80" opacity="0.7"/>
-            <ellipse cx="378" cy="258" rx="15" ry="20" fill="#6b2f80" opacity="0.7"/>
-            <circle cx="255" cy="252" r="8" fill="#ff6fa3" opacity="0.5"/>
-            <circle cx="385" cy="252" r="8" fill="#ff6fa3" opacity="0.5"/>
-            
-            <!-- Decoración alrededor de los ojos -->
-            <circle cx="190" cy="245" r="8" fill="#00d4ff" opacity="0.85"/>
-            <circle cx="195" cy="275" r="7" fill="#a0ff00" opacity="0.85"/>
-            <circle cx="190" cy="305" r="8" fill="#ff8a00" opacity="0.85"/>
-            <circle cx="410" cy="245" r="8" fill="#ffd166" opacity="0.85"/>
-            <circle cx="405" cy="275" r="7" fill="#ff8a00" opacity="0.85"/>
-            <circle cx="410" cy="305" r="8" fill="#00d4ff" opacity="0.85"/>
-            
-            <!-- Nariz decorativa -->
-            <path d="M275,330 L300,370 L325,330 Z" fill="#4a205a"/>
-            <circle cx="300" cy="340" r="6" fill="#ff6fa3" opacity="0.6"/>
-            
-            <!-- Sonrisa amplia con dientes -->
-            <path d="M210,395 Q300,440 390,395" stroke="#2b0f36" stroke-width="12" fill="none" stroke-linecap="round"/>
-            
-            <!-- Dientes detallados -->
-            <rect x="240" y="395" width="24" height="32" fill="#2b0f36" rx="4"/>
-            <rect x="270" y="400" width="24" height="35" fill="#2b0f36" rx="4"/>
-            <rect x="300" y="402" width="24" height="36" fill="#2b0f36" rx="4"/>
-            <rect x="330" y="400" width="24" height="35" fill="#2b0f36" rx="4"/>
-            <rect x="360" y="395" width="24" height="32" fill="#2b0f36" rx="4"/>
-            
-            <!-- Separadores de dientes -->
-            <rect x="264" y="395" width="3" height="32" fill="#4a205a"/>
-            <rect x="294" y="400" width="3" height="35" fill="#4a205a"/>
-            <rect x="324" y="402" width="3" height="36" fill="#4a205a"/>
-            <rect x="354" y="400" width="3" height="35" fill="#4a205a"/>
-            
-            <!-- Mejillas grandes y rosadas -->
-            <circle cx="155" cy="310" r="42" fill="#ff6fa3" opacity="0.6"/>
-            <circle cx="445" cy="310" r="42" fill="#ff6fa3" opacity="0.6"/>
-            
-            <!-- Corazón central en la frente -->
-            <path d="M285,220 Q285,205 295,205 Q300,205 300,210 Q300,205 305,205 Q315,205 315,220 Q315,235 300,248 Q285,235 285,220 Z" fill="#ff6fa3" opacity="0.85" filter="url(#glow)"/>
-            
-            <!-- Decoraciones laterales adicionales -->
-            <circle cx="140" cy="270" r="18" fill="#ffd166" opacity="0.75"/>
-            <circle cx="460" cy="270" r="18" fill="#ff8a00" opacity="0.75"/>
-            <circle cx="125" cy="320" r="15" fill="#ff8a00" opacity="0.7"/>
-            <circle cx="475" cy="320" r="15" fill="#ffd166" opacity="0.7"/>
-            
-            <!-- Puntos decorativos en mandíbula -->
-            <circle cx="250" cy="360" r="6" fill="#00d4ff" opacity="0.8"/>
-            <circle cx="350" cy="360" r="6" fill="#a0ff00" opacity="0.8"/>
-          </svg>
-        </div>
       </div>
 
       <div class="petal-layer"></div>
@@ -614,7 +550,7 @@
     /* Pétalos mejorados */
     (function(){
       const layer=document.querySelector('.petal-layer');
-      const count=25; // Reducido de 35 a 25
+      const count=15; // Reducido de 25 a 15
       for(let i=0;i<count;i++){
         const p=document.createElement('div');
         p.className='petal';
@@ -721,6 +657,32 @@
         
         container.appendChild(node);
       }
+    })();
+
+    /* Control de animaciones para grabación de video */
+    (function(){
+      const pauseBtn = document.getElementById('pauseBtn');
+      let paused = false;
+      
+      pauseBtn.addEventListener('click', function(){
+        paused = !paused;
+        const elements = document.querySelectorAll('*');
+        
+        elements.forEach(el => {
+          if(paused){
+            el.style.animationPlayState = 'paused';
+            pauseBtn.textContent = '▶️';
+          } else {
+            el.style.animationPlayState = 'running';
+            pauseBtn.textContent = '⏸️';
+          }
+        });
+      });
+      
+      // Auto-hide button after 3 seconds
+      setTimeout(() => {
+        pauseBtn.style.opacity = '0.3';
+      }, 3000);
     })();
   </script>
 </body>
