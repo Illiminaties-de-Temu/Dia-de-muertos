@@ -1,689 +1,413 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Día de Muertos — Honrando la vida · Geck Codex</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día de Muertos - Geck Codex</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- Tipografías -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@300;500;700&family=Righteous&display=swap" rel="stylesheet">
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1a0a2e 0%, #4a0e4e 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
 
-  <style>
-    :root{
-      --purple-900: #2b0f36;
-      --purple-700: #4a205a;
-      --purple-500: #6b2f80;
-      --orange-500: #ff8a00;
-      --orange-400: #ff9d1b;
-      --gold: #ffd166;
-      --pink: #ff6fa3;
-      --cyan: #00d4ff;
-      --lime: #a0ff00;
-      --paper: #fff8ef;
-      --shadow: 0 12px 30px rgba(0,0,0,0.5);
-    }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #0f0a1e;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(255, 107, 0, 0.3);
+            border: 2px solid #ff6b00;
+        }
 
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family: "Montserrat", system-ui, sans-serif;
-      background:
-        radial-gradient(circle at 15% 15%, rgba(255,209,102,0.06), transparent 12%),
-        radial-gradient(circle at 85% 85%, rgba(255,111,163,0.05), transparent 10%),
-        radial-gradient(circle at 50% 50%, rgba(107,47,128,0.04), transparent 40%),
-        linear-gradient(180deg, var(--purple-900) 0%, #2f1540 30%, #1e0f2a 100%);
-      color:#fff;
-      overflow-x:hidden;
-      min-height:100vh;
-      /* Optimización para video */
-      user-select: none;
-      -webkit-user-select: none;
-      -webkit-touch-callout: none;
-    }
+        .header {
+            background: linear-gradient(90deg, #ff6b00, #ff1493, #ffb700);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .papel-picado{
-      position:fixed;
-      left:0; right:0; top:0;
-      height:150px;
-      display:flex; justify-content:space-between;
-      padding:12px 5%; gap:16px;
-      z-index:5; pointer-events:none;
-    }
-    .papel{
-      width:calc(20% - 12px);
-      height:100px;
-      transform-origin:top center;
-      animation:sway 6s ease-in-out infinite;
-      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
-    }
-    .papel:nth-child(1){animation-duration:7.2s; animation-delay:0s}
-    .papel:nth-child(2){animation-duration:6.3s; animation-delay:0.7s}
-    .papel:nth-child(3){animation-duration:7.8s; animation-delay:1.2s}
-    .papel:nth-child(4){animation-duration:6.6s; animation-delay:0.4s}
-    .papel:nth-child(5){animation-duration:7s; animation-delay:0.9s}
-    @keyframes sway{
-      0%{transform:rotate(-9deg)}
-      50%{transform:rotate(9deg)}
-      100%{transform:rotate(-9deg)}
-    }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff1493;
+            animation: pulse 2s infinite;
+        }
 
-    .stage{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:10vh 4%;
-      position:relative;
-      z-index:1;
-    }
+        .dot:nth-child(2) {
+            background: #ffb700;
+            animation-delay: 0.3s;
+        }
 
-    .card{
-      max-width:1400px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,138,0,0.02));
-      border-radius:28px;
-      box-shadow: var(--shadow), 0 0 80px rgba(255,138,0,0.2), inset 0 0 100px rgba(107,47,128,0.1);
-      padding:60px;
-      position:relative;
-      overflow:hidden;
-      border:3px solid rgba(255,209,102,0.15);
-      backdrop-filter:blur(10px);
-    }
+        .dot:nth-child(3) {
+            background: #00ffff;
+            animation-delay: 0.6s;
+        }
 
-    .hero{
-      text-align:center;
-      position:relative;
-      z-index:20;
-      margin-bottom:30px;
-      width:100%;
-    }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
 
-    h1{
-      font-family:"Cinzel Decorative", serif;
-      font-size:clamp(40px, 10vw, 85px);
-      color:var(--gold);
-      text-shadow:0 10px 25px rgba(255,138,0,0.9), 0 0 50px rgba(255,209,102,0.6), 0 6px 12px rgba(0,0,0,0.95);
-      letter-spacing:3px;
-      margin-bottom:15px;
-      animation:glow 2.5s ease-in-out infinite;
-      font-weight: 700;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      text-align:center;
-      line-height:1.1;
-    }
-    @keyframes glow{
-      0%, 100%{text-shadow:0 10px 25px rgba(255,138,0,0.9), 0 0 50px rgba(255,209,102,0.6), 0 6px 12px rgba(0,0,0,0.95)}
-      50%{text-shadow:0 10px 25px rgba(255,138,0,1.1), 0 0 70px rgba(255,209,102,0.8), 0 6px 12px rgba(0,0,0,0.95)}
-    }
-    
-    h2{
-      font-size:clamp(18px, 4vw, 28px);
-      color:var(--paper);
-      opacity:0.98;
-      text-shadow:0 3px 8px rgba(0,0,0,0.7);
-      margin-bottom:20px;
-      letter-spacing:2px;
-      font-weight: 500;
-      text-align:center;
-      line-height:1.2;
-    }
-    
-    .signature{
-      margin:0 auto;
-      font-size:clamp(14px, 3vw, 18px);
-      color:rgba(255,255,255,0.95);
-      background:linear-gradient(135deg, rgba(255,138,0,0.3), rgba(107,47,128,0.3));
-      padding:12px 24px;
-      border-radius:999px;
-      display:inline-block;
-      border:2px solid rgba(255,209,102,0.4);
-      box-shadow:0 6px 15px rgba(0,0,0,0.5), 0 0 30px rgba(255,138,0,0.25);
-      text-align:center;
-    }
+        .title {
+            color: white;
+            font-weight: bold;
+            margin-left: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
 
-    .main-content{
-      display:flex;
-      flex-direction:column;
-      gap:30px;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-      z-index:20;
-      width:100%;
-    }
+        .editor {
+            padding: 20px;
+            min-height: 400px;
+            background: #0f0a1e;
+            color: #00ffff;
+            font-size: 16px;
+            line-height: 1.6;
+        }
 
-    .tomb-section{
-      width:100%;
-      max-width:500px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:25px;
-    }
+        .line {
+            display: flex;
+            margin-bottom: 5px;
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
+        }
 
-    .tomb-container{
-      position:relative;
-      width:100%;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-    }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
 
-    .tomb{
-      width:100%;
-      max-width:350px;
-      height:auto;
-      aspect-ratio:400/340;
-      position:relative;
-      filter:drop-shadow(0 20px 40px rgba(0,0,0,0.8)) drop-shadow(0 0 30px rgba(255,138,0,0.25));
-    }
+        .line-number {
+            color: #666;
+            min-width: 40px;
+            text-align: right;
+            padding-right: 15px;
+            user-select: none;
+        }
 
-    .flowers-decoration{
-      position:absolute;
-      width:120%;
-      height:120%;
-      top:50%;
-      left:50%;
-      transform:translate(-50%, -50%);
-      pointer-events:none;
-      z-index:-1;
-    }
+        .code-content {
+            flex: 1;
+        }
 
-    .altar{
-      display:flex;
-      gap:clamp(20px, 4vw, 30px);
-      align-items:flex-end;
-      justify-content:center;
-      padding-top:15px;
-    }
-    .candle{
-      width:clamp(40px, 6vw, 55px);
-      height:clamp(75px, 12vw, 100px);
-      background:linear-gradient(180deg,#fffbf7 0%,#ffe8cc 30%,#ffd9a8 70%, #e6c399 100%);
-      border-radius:12px 12px 6px 6px;
-      position:relative;
-      box-shadow:0 8px 20px rgba(0,0,0,0.6), inset 0 3px 6px rgba(255,255,255,0.4), inset 0 -2px 4px rgba(139,101,75,0.3);
-    }
-    .candle::before{
-      content:'';
-      position:absolute;
-      top:8px;
-      left:50%;
-      transform:translateX(-50%);
-      width:4px;
-      height:8px;
-      background:#8b654b;
-      border-radius:2px;
-    }
-    .flame{
-      width:20px;
-      height:30px;
-      background:radial-gradient(ellipse at 40% 30%,#fff 0%,#fff 10%,#ffe76f 28%,#ffb84a 52%,#ff8a00 78%,rgba(255,70,0,0.5) 92%, transparent 100%);
-      border-radius:50% 50% 50% 50% / 65% 65% 35% 35%;
-      position:absolute;
-      top:-16px;
-      left:50%;
-      transform:translateX(-50%);
-      animation:flicker 2s ease-in-out infinite;
-      box-shadow:0 0 20px rgba(255,160,50,0.9), 0 0 40px rgba(255,138,0,0.5), 0 -4px 12px rgba(255,200,100,0.4);
-    }
-    .flame::after{
-      content:'';
-      position:absolute;
-      top:5px;
-      left:50%;
-      transform:translateX(-50%);
-      width:10px;
-      height:15px;
-      background:radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, transparent 70%);
-      border-radius:50%;
-    }
-    .petal-layer{
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      z-index:15;
-      overflow:hidden;
-    }
-    .petal{
-      position:absolute;
-      width:18px;
-      height:26px;
-      background:linear-gradient(135deg,var(--orange-400) 0%, var(--orange-500) 50%, #ff6b00 100%);
-      border-radius:50% 50% 50% 0;
-      filter:drop-shadow(0 3px 6px rgba(255,138,0,0.5));
-      animation:fall var(--dur) linear infinite;
-      opacity:0;
-    }
-    .petal::before{
-      content:'';
-      position:absolute;
-      top:1px;
-      left:1px;
-      right:1px;
-      bottom:1px;
-      background:linear-gradient(135deg, rgba(255,255,255,0.3), transparent 60%);
-      border-radius:50% 50% 50% 0;
-    }
-    @keyframes fall{
-      0%{transform:translateY(-10vh) rotate(0deg);opacity:0}
-      5%{opacity:1}
-      95%{opacity:0.85}
-      100%{transform:translateY(110vh) rotate(720deg);opacity:0}
-    }
+        .keyword {
+            color: #ff1493;
+            font-weight: bold;
+        }
 
-    @keyframes float{
-      0%{transform:translateY(0) rotate(-2deg)}
-      50%{transform:translateY(-8px) rotate(2deg)}
-      100%{transform:translateY(0) rotate(-2deg)}
-    }
-      0%{transform:translateX(-50%) scale(1) translateY(0)}
-      15%{transform:translateX(-50%) scale(1.15) translateY(-4px)}
-      30%{transform:translateX(-50%) scale(0.88) translateY(3px)}
-      45%{transform:translateX(-50%) scale(1.12) translateY(-3px)}
-      60%{transform:translateX(-50%) scale(0.92) translateY(2px)}
-      75%{transform:translateX(-50%) scale(1.08) translateY(-2px)}
-      90%{transform:translateX(-50%) scale(0.96) translateY(1px)}
-      100%{transform:translateX(-50%) scale(1) translateY(0)}
-    }
+        .function {
+            color: #ffb700;
+        }
 
-    .mini-skull{
-      position:absolute;
-      pointer-events:none;
-      filter:drop-shadow(0 6px 15px rgba(0,0,0,0.5));
-      z-index:10;
-      opacity: 0.6;
-    }
+        .string {
+            color: #ff6b00;
+        }
 
-    @media (max-width:1000px){
-      .main-content{gap:60px}
-      .card{padding:50px}
-      .tomb{transform: scale(1.05);}
-    }
-    /* Optimización específica para Samsung S24 Plus y móviles similares */
-    @media (max-width:750px){
-      .stage{padding:3vh 4%}
-      .main-content{gap:25px; align-items:center}
-      .tomb-section{max-width:90vw; min-width:280px;}
-      .card{padding:25px 20px; border-radius:18px}
-      .papel-picado{height:80px}
-      .papel{height:50px}
-      .tomb{max-width:300px;}
-      
-      /* Hero section optimized for vertical video */
-      h1{font-size:clamp(32px, 9vw, 50px); margin-bottom:10px}
-      h2{font-size:clamp(16px, 4vw, 22px); margin-bottom:15px}
-      .hero{margin-bottom:20px}
-      .signature{font-size:clamp(12px, 3vw, 15px); padding:8px 16px}
-      
-      /* Better candle sizing for mobile */
-      .altar{gap:clamp(15px, 5vw, 25px)}
-      .candle{
-        width:clamp(35px, 7vw, 45px);
-        height:clamp(65px, 12vw, 85px);
-      }
-      .flame{width:16px; height:24px; top:-12px}
-    }
-    
-    /* Samsung S24 Plus specific optimizations (around 400px width) */
-    @media (max-width:450px) and (min-width:350px){
-      .stage{padding:2vh 3%}
-      .card{padding:20px 15px}
-      .main-content{gap:20px}
-      .tomb{max-width:280px;}
-      
-      /* Perfect text sizing for S24 Plus */
-      h1{font-size:clamp(28px, 8vw, 45px)}
-      h2{font-size:clamp(14px, 3.5vw, 20px)}
-      .signature{font-size:clamp(11px, 2.5vw, 14px); padding:6px 14px}
-      .hero{margin-bottom:15px}
-    }
-    
-    @media (max-width:500px){
-      .stage{padding:2vh 3%}
-      .hero{margin-bottom:15px}
-      .signature{padding:6px 12px}
-      .card{padding:18px 12px}
-    }
-  </style>
+        .comment {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .variable {
+            color: #00ffff;
+        }
+
+        .number {
+            color: #9b59b6;
+        }
+
+        .operator {
+            color: #e74c3c;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 18px;
+            background: #ff6b00;
+            animation: blink 1s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .skull {
+            position: fixed;
+            font-size: 30px;
+            animation: float 3s ease-in-out infinite;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .footer {
+            background: #1a0a2e;
+            padding: 10px 20px;
+            color: #7f8c8d;
+            font-size: 12px;
+            border-top: 1px solid #ff6b00;
+        }
+
+        .status {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ff00;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        /* Overlay de transición */
+        .transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #ff6b00, #1a0a2e);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .transition-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .loading-text {
+            text-align: center;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px #ff6b00; }
+            50% { text-shadow: 0 0 40px #ff6b00, 0 0 60px #ff1493; }
+        }
+    </style>
 </head>
 <body>
+    <div class="skull" style="top: 10%; left: 5%;">💀</div>
+    <div class="skull" style="top: 20%; right: 8%; animation-delay: 1s;">🌺</div>
+    <div class="skull" style="bottom: 15%; left: 10%; animation-delay: 2s;">🕯️</div>
+    <div class="skull" style="bottom: 25%; right: 5%; animation-delay: 1.5s;">💀</div>
 
-  <!-- Papel picado decorativo -->
-  <div class="papel-picado" aria-hidden="true">
-    <svg class="papel" viewBox="0 0 180 130">
-      <defs>
-        <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#ff8a00"/>
-          <stop offset="0.5" stop-color="#ff6b00"/>
-          <stop offset="1" stop-color="#6b2f80"/>
-        </linearGradient>
-      </defs>
-      <rect width="180" height="130" rx="10" fill="url(#g1)"/>
-      <circle cx="35" cy="35" r="14" fill="rgba(255,255,255,0.35)"/>
-      <circle cx="90" cy="30" r="16" fill="rgba(255,255,255,0.35)"/>
-      <circle cx="145" cy="35" r="14" fill="rgba(255,255,255,0.35)"/>
-      <path d="M30,70 Q45,85 60,70 Q75,85 90,70 Q105,85 120,70 Q135,85 150,70" stroke="rgba(255,255,255,0.45)" stroke-width="4" fill="none"/>
-      <circle cx="90" cy="95" r="12" fill="rgba(255,255,255,0.3)"/>
-    </svg>
-    
-    <svg class="papel" viewBox="0 0 180 130">
-      <defs>
-        <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#ff6fa3"/>
-          <stop offset="0.5" stop-color="#ff4d8f"/>
-          <stop offset="1" stop-color="#4a205a"/>
-        </linearGradient>
-      </defs>
-      <rect width="180" height="130" rx="10" fill="url(#g2)"/>
-      <circle cx="45" cy="40" r="13" fill="rgba(255,255,255,0.35)"/>
-      <circle cx="90" cy="35" r="15" fill="rgba(255,255,255,0.35)"/>
-      <circle cx="135" cy="40" r="13" fill="rgba(255,255,255,0.35)"/>
-      <rect x="30" y="70" width="120" height="10" rx="5" fill="rgba(255,255,255,0.45)"/>
-      <path d="M40,95 L70,95 M110,95 L140,95" stroke="rgba(255,255,255,0.4)" stroke-width="5" stroke-linecap="round"/>
-    </svg>
-    
-    <svg class="papel" viewBox="0 0 180 130">
-      <defs>
-        <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#ffd166"/>
-          <stop offset="0.5" stop-color="#ffb833"/>
-          <stop offset="1" stop-color="#ff9d1b"/>
-        </linearGradient>
-      </defs>
-      <rect width="180" height="130" rx="10" fill="url(#g3)"/>
-      <polygon points="90,20 105,50 75,50" fill="rgba(255,255,255,0.4)"/>
-      <polygon points="40,25 52,50 28,50" fill="rgba(255,255,255,0.35)"/>
-      <polygon points="140,25 152,50 128,50" fill="rgba(255,255,255,0.35)"/>
-      <circle cx="90" cy="80" r="18" fill="rgba(255,255,255,0.35)"/>
-      <circle cx="50" cy="90" r="12" fill="rgba(255,255,255,0.3)"/>
-      <circle cx="130" cy="90" r="12" fill="rgba(255,255,255,0.3)"/>
-    </svg>
-    
-    <svg class="papel" viewBox="0 0 180 130">
-      <defs>
-        <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#00d4ff"/>
-          <stop offset="0.5" stop-color="#00aacc"/>
-          <stop offset="1" stop-color="#6b2f80"/>
-        </linearGradient>
-      </defs>
-      <rect width="180" height="130" rx="10" fill="url(#g4)"/>
-      <circle cx="50" cy="38" r="13" fill="rgba(255,255,255,0.35)"/>
-      <circle cx="90" cy="33" r="15" fill="rgba(255,255,255,0.35)"/>
-      <circle cx="130" cy="38" r="13" fill="rgba(255,255,255,0.35)"/>
-      <path d="M25,75 L155,75 M40,95 L140,95" stroke="rgba(255,255,255,0.45)" stroke-width="5" stroke-linecap="round"/>
-      <circle cx="90" cy="110" r="10" fill="rgba(255,255,255,0.3)"/>
-    </svg>
-
-    <svg class="papel" viewBox="0 0 180 130">
-      <defs>
-        <linearGradient id="g5" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#a0ff00"/>
-          <stop offset="0.5" stop-color="#7acc00"/>
-          <stop offset="1" stop-color="#4a205a"/>
-        </linearGradient>
-      </defs>
-      <rect width="180" height="130" rx="10" fill="url(#g5)"/>
-      <circle cx="40" cy="40" r="12" fill="rgba(255,255,255,0.35)"/>
-      <circle cx="90" cy="35" r="14" fill="rgba(255,255,255,0.35)"/>
-      <circle cx="140" cy="40" r="12" fill="rgba(255,255,255,0.35)"/>
-      <rect x="35" y="70" width="110" height="8" rx="4" fill="rgba(255,255,255,0.4)"/>
-      <path d="M50,95 Q90,105 130,95" stroke="rgba(255,255,255,0.45)" stroke-width="4" fill="none"/>
-    </svg>
-  </div>
-
-  <div class="stage">
-    <div class="card">
-      <!-- Botón para pausar animaciones (útil para video) -->
-      <button id="pauseBtn" style="position:absolute; top:15px; right:15px; background:rgba(107,47,128,0.8); color:white; border:none; padding:8px 12px; border-radius:8px; font-size:12px; cursor:pointer; z-index:30; opacity:0.7;">⏸️</button>
-      
-      <div class="hero">
-        <h1>Día de Muertos</h1>
-        <h2>Honrando la vida</h2>
-        <div class="signature">De parte de Geck Codex</div>
-      </div>
-
-      <div class="main-content">
-        <!-- Solo la tumba con altar centrados -->
-        <div class="tomb-section">
-          <div class="tomb-container">
-            <!-- Flores decorativas alrededor de la tumba -->
-            <svg class="flowers-decoration" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
-              <!-- Flores izquierda -->
-              <circle cx="80" cy="280" r="35" fill="#ff8a00" opacity="0.85"/>
-              <circle cx="70" cy="240" r="28" fill="#ffd166" opacity="0.8"/>
-              <circle cx="50" cy="300" r="32" fill="#ff9d1b" opacity="0.85"/>
-              <circle cx="90" cy="320" r="26" fill="#ffd166" opacity="0.8"/>
-              <circle cx="110" cy="260" r="30" fill="#ff8a00" opacity="0.8"/>
-              
-              <!-- Flores derecha -->
-              <circle cx="520" cy="280" r="35" fill="#ff8a00" opacity="0.85"/>
-              <circle cx="530" cy="240" r="28" fill="#ffd166" opacity="0.8"/>
-              <circle cx="550" cy="300" r="32" fill="#ff9d1b" opacity="0.85"/>
-              <circle cx="510" cy="320" r="26" fill="#ffd166" opacity="0.8"/>
-              <circle cx="490" cy="260" r="30" fill="#ff8a00" opacity="0.8"/>
-              
-              <!-- Flores abajo izquierda -->
-              <circle cx="140" cy="380" r="30" fill="#ff9d1b" opacity="0.85"/>
-              <circle cx="120" cy="350" r="24" fill="#ffd166" opacity="0.8"/>
-              <circle cx="160" cy="350" r="26" fill="#ff8a00" opacity="0.8"/>
-              
-              <!-- Flores abajo derecha -->
-              <circle cx="460" cy="380" r="30" fill="#ff9d1b" opacity="0.85"/>
-              <circle cx="480" cy="350" r="24" fill="#ffd166" opacity="0.8"/>
-              <circle cx="440" cy="350" r="26" fill="#ff8a00" opacity="0.8"/>
-              
-              <!-- Flores arriba -->
-              <circle cx="200" cy="180" r="28" fill="#ffd166" opacity="0.75"/>
-              <circle cx="300" cy="160" r="32" fill="#ff8a00" opacity="0.8"/>
-              <circle cx="400" cy="180" r="28" fill="#ffd166" opacity="0.75"/>
-            </svg>
-
-            <svg class="tomb" viewBox="0 0 400 340" xmlns="http://www.w3.org/2000/svg">
-              <!-- Sombra de la tumba -->
-              <ellipse cx="200" cy="315" rx="140" ry="20" fill="rgba(0,0,0,0.4)" opacity="0.6"/>
-              
-              <!-- Base de la tumba -->
-              <rect x="80" y="180" width="240" height="140" fill="#8b7355" rx="8"/>
-              <rect x="70" y="165" width="260" height="25" fill="#a0856b" rx="6"/>
-              
-              <!-- Detalles de profundidad en la base -->
-              <rect x="80" y="180" width="240" height="8" fill="rgba(0,0,0,0.25)"/>
-              <rect x="70" y="165" width="260" height="3" fill="rgba(255,255,255,0.2)"/>
-              
-              <!-- Lápida -->
-              <path d="M120,30 Q120,10 140,10 L260,10 Q280,10 280,30 L280,165 L120,165 Z" fill="#c9b8a8" stroke="#9d8b7a" stroke-width="5"/>
-              
-              <!-- Luz en la lápida -->
-              <path d="M125,30 Q125,15 142,15 L145,15 Q128,15 128,30 L128,165 L125,165 Z" fill="rgba(255,255,255,0.25)"/>
-              
-              <!-- Sombra en la lápida -->
-              <path d="M275,30 Q275,15 258,15 L255,15 Q272,15 272,30 L272,165 L275,165 Z" fill="rgba(0,0,0,0.2)"/>
-              
-              <!-- Corona de flores superior -->
-              <circle cx="200" cy="55" r="30" fill="#ff6fa3" opacity="0.9"/>
-              <circle cx="170" cy="68" r="22" fill="#ffd166" opacity="0.9"/>
-              <circle cx="230" cy="68" r="22" fill="#ff8a00" opacity="0.9"/>
-              <circle cx="150" cy="88" r="18" fill="#00d4ff" opacity="0.85"/>
-              <circle cx="250" cy="88" r="18" fill="#a0ff00" opacity="0.85"/>
-              <circle cx="140" cy="108" r="15" fill="#ff9d1b" opacity="0.8"/>
-              <circle cx="260" cy="108" r="15" fill="#ffd166" opacity="0.8"/>
-              
-              <!-- Cruz decorativa -->
-              <rect x="188" y="115" width="24" height="50" rx="4" fill="#6b2f80"/>
-              <rect x="171" y="127" width="58" height="22" rx="4" fill="#6b2f80"/>
-              
-              <!-- Detalles de la cruz -->
-              <rect x="190" y="115" width="4" height="50" fill="rgba(255,255,255,0.3)"/>
-              <rect x="171" y="129" width="58" height="4" fill="rgba(255,255,255,0.3)"/>
-              
-              <!-- Decoración ondulada -->
-              <path d="M140,145 Q200,158 260,145" stroke="#8b7355" stroke-width="4" fill="none"/>
-              
-              <!-- Inscripción -->
-              <text x="200" y="143" font-family="Righteous, serif" font-size="18" font-weight="bold" fill="#5d4a3d" text-anchor="middle" opacity="0.8">RIP</text>
-              
-              <!-- Flores en la base de la tumba -->
-              <circle cx="95" cy="195" r="14" fill="#ff8a00" opacity="0.9"/>
-              <circle cx="115" cy="202" r="12" fill="#ffd166" opacity="0.9"/>
-              <circle cx="285" cy="202" r="12" fill="#ff8a00" opacity="0.9"/>
-              <circle cx="305" cy="195" r="14" fill="#ffd166" opacity="0.9"/>
-              <circle cx="130" cy="190" r="10" fill="#ff9d1b" opacity="0.85"/>
-              <circle cx="270" cy="190" r="10" fill="#ff9d1b" opacity="0.85"/>
-            </svg>
-          </div>
-
-          <!-- Velas centradas debajo de la tumba -->
-          <div class="altar">
-            <div><div class="candle"><div class="flame"></div></div></div>
-            <div><div class="candle"><div class="flame"></div></div></div>
-            <div><div class="candle"><div class="flame"></div></div></div>
-          </div>
+    <div class="container">
+        <div class="header">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <span class="title">💀 CalaveraCoder.js - Día de Muertos Edition 🌺</span>
         </div>
-      </div>
 
-      <div class="petal-layer"></div>
+        <div class="editor" id="editor"></div>
+
+        <div class="footer">
+            <span class="status">
+                <span class="status-dot"></span>
+                <span id="statusText">Escribiendo código...</span>
+            </span>
+            <span class="status" id="lineCount">Líneas: 0</span>
+            <span class="status">Tema: Día de Muertos 🌺</span>
+        </div>
     </div>
-  </div>
 
-  <script>
-    /* Pétalos mejorados */
-    (function(){
-      const layer=document.querySelector('.petal-layer');
-      const count=15; // Reducido de 25 a 15
-      for(let i=0;i<count;i++){
-        const p=document.createElement('div');
-        p.className='petal';
-        p.style.left=(Math.random()*120-10)+'%';
-        const dur=10+Math.random()*14;
-        p.style.setProperty('--dur',dur+'s');
-        p.style.animationDelay=(Math.random()*6)+'s';
-        const scale=0.5+Math.random()*1.6;
-        p.style.width=(18*scale)+'px';
-        p.style.height=(28*scale)+'px';
-        layer.appendChild(p);
-      }
-    })();
+    <!-- Overlay de transición -->
+    <div class="transition-overlay" id="transitionOverlay">
+        <div class="loading-text">
+            <div>💀 Preparando la Ofrenda 🌺</div>
+            <div style="font-size: 16px; margin-top: 20px;">Entrando al mundo del Día de Muertos...</div>
+        </div>
+    </div>
 
-    /* Calaveras flotantes estilo mexicano auténtico - REDUCIDAS */
-    (function(){
-      const container=document.querySelector('.card');
-      
-      const skullTypes = [
-        // Tipo 1: Calavera con flores y corazones
-        `<svg width="100%" height="100%" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="sk1" cx="50%" cy="40%">
-              <stop offset="0%" stop-color="#ffffff"/>
-              <stop offset="100%" stop-color="#fff8ef"/>
-            </radialGradient>
-          </defs>
-          <ellipse cx="70" cy="70" rx="50" ry="56" fill="url(#sk1)" stroke="#ff9d1b" stroke-width="4"/>
-          <circle cx="70" cy="30" r="12" fill="#ff6fa3"/>
-          <circle cx="55" cy="38" r="9" fill="#ffd166"/>
-          <circle cx="85" cy="38" r="9" fill="#ff8a00"/>
-          <ellipse cx="55" cy="62" rx="12" ry="15" fill="#2b0f36"/>
-          <ellipse cx="85" cy="62" rx="12" ry="15" fill="#2b0f36"/>
-          <circle cx="60" cy="58" r="4" fill="#6b2f80" opacity="0.6"/>
-          <circle cx="90" cy="58" r="4" fill="#6b2f80" opacity="0.6"/>
-          <path d="M58,50 Q58,45 61,45 Q63,45 63,47 Q63,45 65,45 Q68,45 68,50 Q68,55 63,59 Q58,55 58,50 Z" fill="#ff6fa3" opacity="0.8"/>
-          <path d="M55,82 Q70,92 85,82" stroke="#2b0f36" stroke-width="4" fill="none"/>
-          <rect x="62" y="82" width="7" height="9" fill="#2b0f36" rx="2"/>
-          <rect x="72" y="82" width="7" height="9" fill="#2b0f36" rx="2"/>
-          <circle cx="40" cy="68" r="14" fill="#ff6fa3" opacity="0.55"/>
-          <circle cx="100" cy="68" r="14" fill="#ff6fa3" opacity="0.55"/>
-          <circle cx="35" cy="60" r="7" fill="#ffd166" opacity="0.7"/>
-          <circle cx="105" cy="60" r="7" fill="#ff8a00" opacity="0.7"/>
-        </svg>`,
-        
-        // Tipo 2: Calavera con decoración de ojos
-        `<svg width="100%" height="100%" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="sk2" cx="50%" cy="40%">
-              <stop offset="0%" stop-color="#fffef8"/>
-              <stop offset="100%" stop-color="#fff5e6"/>
-            </radialGradient>
-          </defs>
-          <circle cx="70" cy="72" r="48" fill="url(#sk2)" stroke="#6b2f80" stroke-width="4"/>
-          <circle cx="70" cy="32" r="11" fill="#ffd166"/>
-          <circle cx="52" cy="40" r="8" fill="#ff8a00"/>
-          <circle cx="88" cy="40" r="8" fill="#00d4ff"/>
-          <ellipse cx="54" cy="64" rx="13" ry="16" fill="#2b0f36"/>
-          <ellipse cx="86" cy="64" rx="13" ry="16" fill="#2b0f36"/>
-          <ellipse cx="60" cy="60" rx="5" ry="7" fill="#6b2f80" opacity="0.65"/>
-          <ellipse cx="92" cy="60" rx="5" ry="7" fill="#6b2f80" opacity="0.65"/>
-          <circle cx="42" cy="56" r="5" fill="#00d4ff" opacity="0.8"/>
-          <circle cx="40" cy="68" r="4" fill="#a0ff00" opacity="0.8"/>
-          <circle cx="42" cy="80" r="5" fill="#ff8a00" opacity="0.8"/>
-          <circle cx="98" cy="56" r="5" fill="#ff6fa3" opacity="0.8"/>
-          <circle cx="100" cy="68" r="4" fill="#ffd166" opacity="0.8"/>
-          <circle cx="98" cy="80" r="5" fill="#00d4ff" opacity="0.8"/>
-          <path d="M52,90 Q70,98 88,90" stroke="#2b0f36" stroke-width="5" fill="none" stroke-linecap="round"/>
-          <rect x="60" y="90" width="8" height="10" fill="#2b0f36" rx="2"/>
-          <rect x="72" y="90" width="8" height="10" fill="#2b0f36" rx="2"/>
-          <circle cx="32" cy="70" r="12" fill="#ff6fa3" opacity="0.5"/>
-          <circle cx="108" cy="70" r="12" fill="#ff6fa3" opacity="0.5"/>
-        </svg>`
-      ];
-
-      // REDUCIDO DE 12 A 3 calaveras
-      const total=3;
-      for(let i=0;i<total;i++){
-        const node=document.createElement('div');
-        node.className='mini-skull';
-        
-        // Posiciones más estratégicas y menos amontonadas
-        const positions = [
-          {left: 15, top: 20}, // esquina superior izquierda
-          {left: 85, top: 25}, // esquina superior derecha  
-          {left: 50, top: 75}  // centro inferior
+    <script>
+        const codeLines = [
+            { num: 1, content: '<span class="comment">// 💀 Celebrando el Día de Muertos con código 🌺</span>' },
+            { num: 2, content: '' },
+            { num: 3, content: '<span class="keyword">const</span> <span class="variable">ofrenda</span> <span class="operator">=</span> {' },
+            { num: 4, content: '&nbsp;&nbsp;<span class="variable">flores</span>: <span class="string">"cempasúchil"</span>,' },
+            { num: 5, content: '&nbsp;&nbsp;<span class="variable">velas</span>: <span class="number">12</span>,' },
+            { num: 6, content: '&nbsp;&nbsp;<span class="variable">comida</span>: [<span class="string">"pan de muerto"</span>, <span class="string">"mole"</span>, <span class="string">"tamales"</span>],' },
+            { num: 7, content: '&nbsp;&nbsp;<span class="variable">bebidas</span>: [<span class="string">"agua"</span>, <span class="string">"tequila"</span>, <span class="string">"atole"</span>],' },
+            { num: 8, content: '&nbsp;&nbsp;<span class="variable">fotografias</span>: <span class="keyword">true</span>' },
+            { num: 9, content: '};' },
+            { num: 10, content: '' },
+            { num: 11, content: '<span class="keyword">function</span> <span class="function">recordarALosQueSeHanIdo</span>(<span class="variable">nombre</span>) {' },
+            { num: 12, content: '&nbsp;&nbsp;<span class="keyword">const</span> <span class="variable">mensaje</span> <span class="operator">=</span> <span class="string">`💀 ${nombre}, siempre en nuestros corazones 🌺`</span>;' },
+            { num: 13, content: '&nbsp;&nbsp;<span class="keyword">return</span> <span class="variable">mensaje</span>;' },
+            { num: 14, content: '}' },
+            { num: 15, content: '' },
+            { num: 16, content: '<span class="keyword">class</span> <span class="function">Calacas</span> {' },
+            { num: 17, content: '&nbsp;&nbsp;<span class="function">constructor</span>(<span class="variable">nombre</span>) {' },
+            { num: 18, content: '&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>.<span class="variable">nombre</span> <span class="operator">=</span> <span class="variable">nombre</span>;' },
+            { num: 19, content: '&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>.<span class="variable">bailando</span> <span class="operator">=</span> <span class="keyword">true</span>;' },
+            { num: 20, content: '&nbsp;&nbsp;}' },
+            { num: 21, content: '' },
+            { num: 22, content: '&nbsp;&nbsp;<span class="function">celebrar</span>() {' },
+            { num: 23, content: '&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">console</span>.<span class="function">log</span>(<span class="string">`🎉 ${this.nombre} está celebrando! 💃`</span>);' },
+            { num: 24, content: '&nbsp;&nbsp;}' },
+            { num: 25, content: '}' },
+            { num: 26, content: '' },
+            { num: 27, content: '<span class="comment">// 🕯️ La muerte no es el final, es el comienzo de un viaje...</span>' },
+            { num: 28, content: '<span class="keyword">const</span> <span class="variable">catrina</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="function">Calacas</span>(<span class="string">"La Catrina"</span>);' },
+            { num: 29, content: '<span class="variable">catrina</span>.<span class="function">celebrar</span>();' },
+            { num: 30, content: '' },
+            { num: 31, content: '<span class="variable">console</span>.<span class="function">log</span>(<span class="function">recordarALosQueSeHanIdo</span>(<span class="string">"Abuelita"</span>));' },
+            { num: 32, content: '<span class="variable">console</span>.<span class="function">log</span>(<span class="string">"🌺 Vivan los que ya no están 💀"</span>);' },
+            { num: 33, content: '' },
+            { num: 34, content: '<span class="comment">// 🎯 Redirigiendo a la ofrenda principal...</span>' },
+            { num: 35, content: '<span class="function">window</span>.<span class="function">location</span>.<span class="variable">href</span> <span class="operator">=</span> <span class="string">"tumba.html"</span>;' }
         ];
-        
-        node.style.left = positions[i].left + '%';
-        node.style.top = positions[i].top + '%';
-        
-        const size = 60 + Math.random() * 80; // Tamaños más consistentes
-        node.style.width = size + 'px';
-        node.style.height = size + 'px';
-        node.style.opacity = 0.4 + Math.random() * 0.3; // Más sutiles
-        node.style.transform = `translate(-50%,-50%) rotate(${Math.random()*40-20}deg)`; // Menos rotación
-        
-        const skullHTML = skullTypes[Math.floor(Math.random() * skullTypes.length)];
-        node.innerHTML = skullHTML;
-        
-        const dur = 8 + Math.random() * 8; // Animación más lenta y sutil
-        const delay = Math.random() * 3;
-        node.style.animation = `float ${dur}s ease-in-out ${delay}s infinite`;
-        
-        container.appendChild(node);
-      }
-    })();
 
-    /* Control de animaciones para grabación de video */
-    (function(){
-      const pauseBtn = document.getElementById('pauseBtn');
-      let paused = false;
-      
-      pauseBtn.addEventListener('click', function(){
-        paused = !paused;
-        const elements = document.querySelectorAll('*');
-        
-        elements.forEach(el => {
-          if(paused){
-            el.style.animationPlayState = 'paused';
-            pauseBtn.textContent = '▶️';
-          } else {
-            el.style.animationPlayState = 'running';
-            pauseBtn.textContent = '⏸️';
-          }
-        });
-      });
-      
-      // Auto-hide button after 3 seconds
-      setTimeout(() => {
-        pauseBtn.style.opacity = '0.3';
-      }, 3000);
-    })();
-  </script>
+        const editor = document.getElementById('editor');
+        const lineCount = document.getElementById('lineCount');
+        const statusText = document.getElementById('statusText');
+        const transitionOverlay = document.getElementById('transitionOverlay');
+        let currentLine = 0;
+        let currentChar = 0;
+        let typingSpeed = 10; // Velocidad de escritura en ms
+
+        function createLine(lineNum, content) {
+            const line = document.createElement('div');
+            line.className = 'line';
+            line.innerHTML = `
+                <span class="line-number">${lineNum}</span>
+                <span class="code-content" id="line-${lineNum}"></span>
+            `;
+            editor.appendChild(line);
+            return document.getElementById(`line-${lineNum}`);
+        }
+
+        function typeCharacter() {
+            if (currentLine >= codeLines.length) {
+                // Código completado - iniciar transición
+                const lastLine = editor.querySelector('.line:last-child .code-content');
+                if (lastLine) {
+                    const cursor = lastLine.querySelector('.cursor');
+                    if (cursor) cursor.remove();
+                }
+                
+                statusText.textContent = "Código completado. Iniciando ofrenda...";
+                
+                // Mostrar overlay de transición después de 2 segundos
+                setTimeout(() => {
+                    transitionOverlay.classList.add('active');
+                    
+                    // Redirigir después de 3 segundos más
+                    setTimeout(() => {
+                        window.location.href = "tumba.html";
+                    }, 3000);
+                }, 2000);
+                
+                return;
+            }
+
+            const line = codeLines[currentLine];
+            let lineElement = document.getElementById(`line-${line.num}`);
+            
+            if (!lineElement) {
+                lineElement = createLine(line.num, line.content);
+                currentChar = 0;
+            }
+
+            if (currentChar === 0) {
+                lineCount.textContent = `Líneas: ${line.num}`;
+            }
+
+            // Contenido sin etiquetas HTML para contar caracteres
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = line.content;
+            const plainText = tempDiv.textContent || tempDiv.innerText || '';
+
+            if (currentChar < plainText.length) {
+                // Escribir carácter por carácter
+                const htmlContent = line.content;
+                let charCount = 0;
+                let htmlIndex = 0;
+                let result = '';
+                let inTag = false;
+
+                while (htmlIndex < htmlContent.length && charCount <= currentChar) {
+                    const char = htmlContent[htmlIndex];
+                    
+                    if (char === '<') inTag = true;
+                    if (char === '>') {
+                        inTag = false;
+                        result += char;
+                        htmlIndex++;
+                        continue;
+                    }
+                    
+                    result += char;
+                    
+                    if (!inTag && char !== '>') {
+                        if (htmlContent.substr(htmlIndex, 6) === '&nbsp;') {
+                            result += 'nbsp;';
+                            htmlIndex += 5;
+                            charCount++;
+                        } else {
+                            charCount++;
+                        }
+                    }
+                    
+                    htmlIndex++;
+                }
+
+                lineElement.innerHTML = result + '<span class="cursor"></span>';
+                currentChar++;
+                setTimeout(typeCharacter, typingSpeed);
+            } else {
+                // Línea completada, pasar a la siguiente
+                lineElement.innerHTML = line.content;
+                currentLine++;
+                currentChar = 0;
+                setTimeout(typeCharacter, 200);
+            }
+        }
+
+        // Iniciar la escritura automática
+        setTimeout(typeCharacter, 500);
+
+        // Generar calaveras flotantes aleatorias
+        setInterval(() => {
+            const skulls = ['💀', '🌺', '🕯️', '🦴'];
+            const skull = document.createElement('div');
+            skull.className = 'skull';
+            skull.textContent = skulls[Math.floor(Math.random() * skulls.length)];
+            skull.style.left = Math.random() * 100 + '%';
+            skull.style.top = Math.random() * 100 + '%';
+            skull.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(skull);
+            
+            setTimeout(() => skull.remove(), 5000);
+        }, 3000);
+    </script>
 </body>
 </html>
